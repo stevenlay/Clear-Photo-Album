@@ -1,6 +1,7 @@
 from imutils import paths
 import cv2
 import sys
+import os
 
 def laplacian_variance(img):
     return cv2.Laplacian(img, cv2.CV_64F).var()
@@ -15,6 +16,9 @@ for path in paths.list_images(sys.argv[1]):
          cv2.putText(image, "Not Blurry: {:.2f}".format(image_var), (0,20), cv2.FONT_HERSHEY_PLAIN, 1.50, (0,255,0), 2)
     #blurry
     else:
-         cv2.putText(image, "Blurry: {:.2f}".format(image_var), (0,20), cv2.FONT_HERSHEY_PLAIN, 1.50, (0,0,255), 2)
+        #need to move the image to another directory
+        if not os.path.exists("blurry"):
+            os.makedirs("blurry")
+        cv2.putText(image, "Blurry: {:.2f}".format(image_var), (0,20), cv2.FONT_HERSHEY_PLAIN, 1.50, (0,0,255), 2)
     cv2.imshow("Picture", image)
     key = cv2.waitKey(0)
