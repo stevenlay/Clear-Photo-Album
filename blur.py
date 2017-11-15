@@ -29,6 +29,7 @@ for path in paths.list_images(src):
         #handle duplicate copy
         try:
             shutil.copy2(path, dest)
+            os.remove(path)
         except shutil.SameFileError:
             pass
     cv2.imshow("Picture", image)
